@@ -32,19 +32,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         searchButton.setOnClickListener {
-            val pokemon: Pokemon? = this.pokemons.firstOrNull {
-                it.name == searchEditText.text.toString()
-            }
-            if (pokemon != null) {
-                Log.d(TAG, "Match found: ${pokemon.name}")
-                index = this.pokemons.indexOf(pokemon)
-                updateDisplay()
-            } else {
-                Toast.makeText(
-                    this,
-                    "Aucun Pokémon avec le nom ${searchEditText.text} n'a été trouvé !",
-                    Toast.LENGTH_SHORT
-                ).show()
+            if (searchEditText.error == null) {
+                val pokemon: Pokemon? = this.pokemons.firstOrNull {
+                    it.name == searchEditText.text.toString()
+                }
+                if (pokemon != null) {
+                    Log.d(TAG, "Match found: ${pokemon.name}")
+                    index = this.pokemons.indexOf(pokemon)
+                    updateDisplay()
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Aucun Pokémon avec le nom ${searchEditText.text} n'a été trouvé !",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
         previousButton.setOnClickListener {

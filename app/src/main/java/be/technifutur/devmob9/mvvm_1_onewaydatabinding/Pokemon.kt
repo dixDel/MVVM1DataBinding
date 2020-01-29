@@ -8,7 +8,7 @@ class Pokemon(
     val description: String,
     val imageResource: Drawable,
 
-    var nameError: String? = null
+    var test: String? = null
 ): BaseObservable() {
 
     var name: String = name
@@ -17,17 +17,18 @@ class Pokemon(
             notifyChange()
         }
 
-    var searchName: String = ""
+    var searchName: String? = null
         set(value) {
             field = value
             validateSearchName()
     }
 
     private fun validateSearchName() {
-        if (name.isEmpty()) {
-            nameError = "Veuillez entrer un nom de Pokémon"
-        } else if (!name.matches(Regex("[a-zA-ZÀ-ÿ]+"))) {
-            nameError = "Veuillez n'entrer que des lettres"
+        test = null
+        if (searchName?.isEmpty() == true) {
+            test = "Veuillez entrer un nom de Pokémon"
+        } else if (searchName?.matches(Regex("[a-zA-ZÀ-ÿ]+")) == false) {
+            test = "Veuillez n'entrer que des lettres"
         }
         notifyChange()
     }
