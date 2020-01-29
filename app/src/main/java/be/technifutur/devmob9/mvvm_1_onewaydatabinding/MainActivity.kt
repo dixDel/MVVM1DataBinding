@@ -46,10 +46,10 @@ class MainActivity : AppCompatActivity() {
             resources.getDrawable(R.drawable.arcanine, theme)
         ))
 
-
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mainBinding?.pokemon = this.pokemons[index]
 
+        searchEditText.setSingleLine()
         searchButton.setOnClickListener {
             val pokemon: Pokemon? = this.pokemons.firstOrNull {
                     it.name == searchEditText.text.toString()

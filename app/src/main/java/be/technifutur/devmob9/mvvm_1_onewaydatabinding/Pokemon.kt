@@ -17,7 +17,7 @@ class Pokemon(
             notifyChange()
         }
 
-    var searchName: String = name
+    var searchName: String = ""
         set(value) {
             field = value
             validateSearchName()
