@@ -13,26 +13,29 @@ class MainActivity : AppCompatActivity() {
     private val TAG = MainActivity::class.java.simpleName
     private val pokemons = arrayListOf<Pokemon>()
 
-    private var mainBinding: ActivityMainBinding? = null
+    private lateinit var mainBinding: ActivityMainBinding
     private var index: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setupData()
-
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        mainBinding?.pokemon = this.pokemons[index]
 
+        setupData()
         setupViews()
-
         setupListeners()
+
+        mainBinding.pokemon = this.pokemons[index]
     }
 
     private fun setupListeners() {
+        mainLayout.setOnClickListener {
+            searchEditText.clearFocus()
+        }
         searchButton.setOnClickListener {
-            if (searchEditText.error == null) {
+            mainBinding.pokemon?.validateSearchName()
+            if (mainBinding.pokemon?.searchNameError == null) {
                 val pokemon: Pokemon? = this.pokemons.firstOrNull {
                     it.name == searchEditText.text.toString()
                 }
@@ -47,6 +50,8 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+            } else {
+                searchEditText.requestFocus()
             }
         }
         previousButton.setOnClickListener {
@@ -113,6 +118,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateDisplay() {
         previousButton.isEnabled = index > 0
         nextButton.isEnabled = index < this.pokemons.size - 1
-        mainBinding?.pokemon = pokemons[index]
+        mainBinding.pokemon = pokemons[index]
+        mainBinding.pokemon?.searchName = null
     }
 }
