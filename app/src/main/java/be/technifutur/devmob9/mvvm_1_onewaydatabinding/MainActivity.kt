@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
             resources.getDrawable(R.drawable.charmander)
         )
 
-        val viewDataBinding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        viewDataBinding.setVariable(BR.pokemon, pokemon)
+        val mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
+        mainBinding.pokemon = pokemon
     }
 }
