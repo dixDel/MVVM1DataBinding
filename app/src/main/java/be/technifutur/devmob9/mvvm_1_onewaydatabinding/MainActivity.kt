@@ -3,7 +3,7 @@ package be.technifutur.devmob9.mvvm_1_onewaydatabinding
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
+import be.technifutur.devmob9.mvvm_1_onewaydatabinding.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
             resources.getDrawable(R.drawable.charmander)
         )
 
-        val viewDataBinding: ViewDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        viewDataBinding.setVariable(1, pokemon)
+        val viewDataBinding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        viewDataBinding.setVariable(BR.pokemon, pokemon)
     }
 }
