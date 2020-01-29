@@ -56,7 +56,8 @@ class MainActivity : AppCompatActivity() {
                 }
             if (pokemon != null) {
                 Log.d(TAG, "Match found: ${pokemon.name}")
-                mainBinding?.pokemon = pokemon
+                index = this.pokemons.indexOf(pokemon)
+                updateDisplay()
             } else {
                 Toast.makeText(this, "Aucun Pokémon avec le nom ${searchEditText.text} n'a été trouvé !", Toast.LENGTH_SHORT).show()
             }
