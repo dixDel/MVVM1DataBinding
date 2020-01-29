@@ -17,7 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/searchEditText"
-            android:text="@={pokemon.name}"
+            android:text="@={pokemon.searchName}"
             error="@{pokemon.nameError}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/searchButton"
@@ -59,6 +59,23 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="20dp"
             android:src="@{pokemon.imageResource}"
+            />
+
+        <Button
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/previousButton"
+            android:text="@string/titlePreviousButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+        <Button
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/nextButton"
+            android:text="@string/titleNextButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

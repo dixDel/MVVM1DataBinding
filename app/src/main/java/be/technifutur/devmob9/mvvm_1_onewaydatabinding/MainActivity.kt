@@ -2,16 +2,24 @@ package be.technifutur.devmob9.mvvm_1_onewaydatabinding
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import be.technifutur.devmob9.mvvm_1_onewaydatabinding.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    private val TAG = MainActivity::class.java.simpleName
+
+    private var mainBinding: ActivityMainBinding? = null
+    private var index: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val pokemons = arrayListOf<Pokemon>(
+        val pokemons = arrayListOf(
             Pokemon(
                 "Charmander",
                 "Charmander is a bipedal, reptilian Pokémon with a primarily orange body and blue eyes. Its underside from the chest down and the soles of its feet are cream-colored. It has two small fangs visible in its upper jaw and two smaller fangs in its lower jaw. A fire burns at the tip of this Pokémon's slender tail and has blazed there since Charmander's birth. The flame can be used as an indication of Charmander's health and mood, burning brightly when the Pokémon is strong, weakly when it is exhausted, wavering when it is happy, and blazing when it is enraged. It is said that Charmander dies if its flame goes out. However, if the Pokémon is healthy, the flame will continue to burn even if it gets a bit wet and is said to steam in the rain.\nCharmander can be found in hot, mountainous areas. However, it is found far more often in the ownership of Trainers. As shown in Pokémon Snap, Charmander exhibits pack behavior, calling others of its species if it finds food.",
@@ -39,7 +47,33 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        val mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
-        mainBinding.pokemon = pokemons[4]
+        mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        mainBinding?.pokemon = pokemons[index]
+
+        searchButton.setOnClickListener {
+            val pokemon: Pokemon? = pokemons.firstOrNull {
+                    it.name == searchEditText.text.toString()
+                }
+            if (pokemon != null) {
+                Log.d(TAG, "Match found: ${pokemon.name}")
+                mainBinding?.pokemon = pokemon
+            } else {
+                Toast.makeText(this, "Aucun Pokémon avec le nom ${searchEditText.text} n'a été trouvé !", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        previousButton.setOnClickListener {
+            if (index > 0) {
+                index--
+                mainBinding?.pokemon = pokemons[index]
+            }
+        }
+
+        nextButton.setOnClickListener {
+            if (index < pokemons.size - 1) {
+                index++
+                mainBinding?.pokemon = pokemons[index]
+            }
+        }
     }
 }
