@@ -23,7 +23,10 @@ class MainActivity : AppCompatActivity() {
 
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        val mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        val mainViewModel = MainActivityViewModelFactory(this.application, Pokemon("", "", null))
+            .create(MainViewModel::class.java)
+        //val mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        //mainViewModel.initPokemon(Pokemon("", "", null))
 
         mainBinding.viewModel = mainViewModel
 
@@ -39,8 +42,8 @@ class MainActivity : AppCompatActivity() {
             searchEditText.clearFocus()
         }
         searchButton.setOnClickListener {
-            mainBinding.pokemon?.validateSearchName()
-            if (mainBinding.pokemon?.searchNameError == null) {
+            mainBinding.viewModel?.validateSearchName()
+            if (mainBinding.viewModel?.searchNameError == null) {
                 val pokemon: Pokemon? = this.pokemons.firstOrNull {
                     it.name.equals(searchEditText.text.toString(), true)
                 }
@@ -125,7 +128,7 @@ class MainActivity : AppCompatActivity() {
         nextButton.isEnabled = index < this.pokemons.size - 1
         mainBinding.pokemon = pokemons[index]
         mainBinding.pokemon?.searchName = null
-        mainBinding.pokemon?.searchNameError = null
+        mainBinding.viewModel?.searchNameError = null
         searchEditText.clearFocus()
     }
 }
