@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             mainBinding.pokemon?.validateSearchName()
             if (mainBinding.pokemon?.searchNameError == null) {
                 val pokemon: Pokemon? = this.pokemons.firstOrNull {
-                    it.name == searchEditText.text.toString()
+                    it.name.equals(searchEditText.text.toString(), true)
                 }
                 if (pokemon != null) {
                     Log.d(TAG, "Match found: ${pokemon.name}")
@@ -120,5 +120,7 @@ class MainActivity : AppCompatActivity() {
         nextButton.isEnabled = index < this.pokemons.size - 1
         mainBinding.pokemon = pokemons[index]
         mainBinding.pokemon?.searchName = null
+        mainBinding.pokemon?.searchNameError = null
+        searchEditText.clearFocus()
     }
 }
