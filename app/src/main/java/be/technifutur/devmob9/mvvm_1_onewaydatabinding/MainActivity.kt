@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import be.technifutur.devmob9.mvvm_1_onewaydatabinding.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,9 +23,9 @@ class MainActivity : AppCompatActivity() {
 
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        //val mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        val mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-        //mainBinding.viewModel = mainViewModel
+        mainBinding.viewModel = mainViewModel
 
         setupData()
         setupViews()
