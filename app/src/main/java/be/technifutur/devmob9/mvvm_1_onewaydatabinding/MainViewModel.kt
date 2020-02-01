@@ -10,14 +10,20 @@ import androidx.lifecycle.AndroidViewModel
 
 class MainViewModel(private val app: Application) : AndroidViewModel(app), Observable {
 
-    val pokemons = arrayListOf<Pokemon>()
+    private val pokemons = arrayListOf<Pokemon>()
+
+    private var callbacks: PropertyChangeRegistry = PropertyChangeRegistry()
 
     private var pokemon: Pokemon
-    private var callbacks: PropertyChangeRegistry = PropertyChangeRegistry()
+    var previousButton: Boolean = false
+    var nextButton: Boolean = false
 
     init {
         setupData()
         pokemon = pokemons[0]
+        if (this.pokemons.size > 0) {
+            nextButton = true
+        }
     }
 
     var searchName: String? = null
@@ -49,7 +55,7 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app), Obser
         return pokemon.imageResource
     }
 
-    fun validateSearchName() {
+    private fun validateSearchName() {
         searchNameError = null
         if (searchName?.isEmpty() != false) {
             searchNameError = "Veuillez entrer un nom de Pokémon"
@@ -121,5 +127,29 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app), Obser
                 this.searchNameError = "Aucun Pokémon avec le nom $searchName n'a été trouvé !"
             }
         }
+    }
+
+    fun onPreviousButtonClick(view: View) {
+        val index = this.pokemons.indexOf(this.pokemon)
+        if (index > 0) {
+            this.pokemon = this.pokemons[index - 1]
+            this.nextButton = true
+        }
+        if (index - 1 <= 0) {
+            this.previousButton = false
+        }
+        callbacks.notifyChange(this, BR._all)
+    }
+
+    fun onNextButtonClick(view: View) {
+        val index = this.pokemons.indexOf(this.pokemon)
+        if (index < this.pokemons.size - 1) {
+            this.pokemon = this.pokemons[index + 1]
+            this.previousButton = true
+        }
+        if (index + 1 >= this.pokemons.size - 1) {
+            this.nextButton = false
+        }
+        callbacks.notifyChange(this, BR._all)
     }
 }

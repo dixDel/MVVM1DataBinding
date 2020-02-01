@@ -2,4 +2,5 @@
     <string name="app_name">MVVM-1-OneWayDataBinding</string>
     <string name="titlePreviousButton">Précédent</string>
     <string name="titleNextButton">Suivant</string>
+    <string name="contentDescSearchButton">Magnifying glass</string>
 </resources>
