@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp"
-        android:focusable="true"
         android:focusableInTouchMode="true"
+        android:clickable="true"
         android:descendantFocusability="beforeDescendants"
         android:id="@+id/mainLayout"
         tools:context=".MainActivity">
@@ -56,6 +56,8 @@
             app:layout_constraintBottom_toTopOf="@+id/imageImageView"
             android:layout_marginTop="20dp"
             android:scrollbars="vertical"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
             />
         <ImageView
             android:layout_width="match_parent"

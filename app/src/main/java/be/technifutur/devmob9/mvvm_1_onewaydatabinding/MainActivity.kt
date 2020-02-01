@@ -1,12 +1,14 @@
 package be.technifutur.devmob9.mvvm_1_onewaydatabinding
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
 import be.technifutur.devmob9.mvvm_1_onewaydatabinding.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -36,9 +38,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
-        mainLayout.setOnClickListener {
-            searchEditText.clearFocus()
+        searchEditText.setOnFocusChangeListener { view, b ->
+            Log.d(TAG, "FOCUS: $b")
+            if (!b) {
+                val imm: InputMethodManager =
+                    getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
+            }
         }
+
         searchButton.setOnClickListener {
             mainBinding.viewModel?.validateSearchName()
             if (mainBinding.viewModel?.searchNameError == null) {
