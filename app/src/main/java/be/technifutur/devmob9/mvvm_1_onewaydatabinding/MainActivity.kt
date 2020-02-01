@@ -2,6 +2,7 @@ package be.technifutur.devmob9.mvvm_1_onewaydatabinding
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -78,6 +79,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupViews() {
         searchEditText.setSingleLine()
+
+        descriptionTextView.movementMethod = ScrollingMovementMethod()
 
         previousButton.isEnabled = false
         if (pokemons.size <= 1) {
