@@ -50,7 +50,6 @@ class MainViewModel(
         } else if (searchName?.matches(Regex("[a-zA-ZÀ-ÿ]+")) == false) {
             searchNameError = "Veuillez n'entrer que des lettres"
         }
-        println(searchNameError)
         callbacks.notifyChange(this, BR._all)
     }
 
