@@ -103,18 +103,6 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app), Obser
         )
     }
 
-    fun size(): Int {
-        return this.pokemons.size
-    }
-
-    fun setActivePokemon(index: Int) {
-        this.pokemon = this.pokemons[index]
-    }
-
-    fun getIndexOf(pokemon: Pokemon): Int {
-        return this.pokemons.indexOf(pokemon)
-    }
-
     fun onSearchButtonClick(view: View) {
         this.validateSearchName()
         if (this.searchNameError == null) {
@@ -123,21 +111,25 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app), Obser
             }
             if (pokemon != null) {
                 this.pokemon = pokemon
+                this.updateButtonStatus()
             } else {
                 this.searchNameError = "Aucun Pokémon avec le nom $searchName n'a été trouvé !"
             }
         }
     }
 
+    private fun updateButtonStatus() {
+        val index = this.pokemons.indexOf(this.pokemon)
+        this.previousButton = index > 0
+        this.nextButton = index < this.pokemons.size - 1
+    }
+
     fun onPreviousButtonClick(view: View) {
         val index = this.pokemons.indexOf(this.pokemon)
         if (index > 0) {
             this.pokemon = this.pokemons[index - 1]
-            this.nextButton = true
         }
-        if (index - 1 <= 0) {
-            this.previousButton = false
-        }
+        this.updateButtonStatus()
         callbacks.notifyChange(this, BR._all)
     }
 
@@ -145,11 +137,8 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app), Obser
         val index = this.pokemons.indexOf(this.pokemon)
         if (index < this.pokemons.size - 1) {
             this.pokemon = this.pokemons[index + 1]
-            this.previousButton = true
         }
-        if (index + 1 >= this.pokemons.size - 1) {
-            this.nextButton = false
-        }
+        this.updateButtonStatus()
         callbacks.notifyChange(this, BR._all)
     }
 }

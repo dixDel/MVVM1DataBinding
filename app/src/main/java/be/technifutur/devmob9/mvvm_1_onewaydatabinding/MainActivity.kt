@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
     private val TAG = MainActivity::class.java.simpleName
 
     private lateinit var binding: ActivityMainBinding
-    private var index: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +34,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         searchEditText.setOnFocusChangeListener { view, b ->
-            Log.d(TAG, "FOCUS: $b")
             if (!b) {
                 val imm: InputMethodManager =
                     getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -49,10 +47,5 @@ class MainActivity : AppCompatActivity() {
 
         descriptionTextView.movementMethod = ScrollingMovementMethod()
         descriptionTextView.setBackgroundColor(Color.TRANSPARENT)
-
-        previousButton.isEnabled = false
-        if (this.binding.viewModel!!.size() <= 1) {
-            nextButton.isEnabled = false
-        }
     }
 }
