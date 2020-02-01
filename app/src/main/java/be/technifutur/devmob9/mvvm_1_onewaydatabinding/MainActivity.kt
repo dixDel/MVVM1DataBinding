@@ -24,18 +24,15 @@ class MainActivity : AppCompatActivity() {
 
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        val mainViewModel = MainActivityViewModelFactory(this.application, Pokemon("", "", null))
+        setupData()
+
+        val mainViewModel = MainActivityViewModelFactory(this.application, pokemons[0])
             .create(MainViewModel::class.java)
-        //val mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        //mainViewModel.initPokemon(Pokemon("", "", null))
 
         mainBinding.viewModel = mainViewModel
 
-        setupData()
         setupViews()
         setupListeners()
-
-        mainBinding.pokemon = this.pokemons[index]
     }
 
     private fun setupListeners() {
@@ -129,8 +126,8 @@ class MainActivity : AppCompatActivity() {
     private fun updateDisplay() {
         previousButton.isEnabled = index > 0
         nextButton.isEnabled = index < this.pokemons.size - 1
-        mainBinding.pokemon = pokemons[index]
-        mainBinding.pokemon?.searchName = null
+        mainBinding.viewModel?.pokemon = pokemons[index]
+        mainBinding.viewModel?.searchName = null
         mainBinding.viewModel?.searchNameError = null
         searchEditText.clearFocus()
     }

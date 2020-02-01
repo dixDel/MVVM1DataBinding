@@ -14,9 +14,4 @@ class Pokemon (
             field = value
             notifyChange()
         }
-
-    var searchName: String? = null
-        set(value) {
-            field = value
-    }
 }
