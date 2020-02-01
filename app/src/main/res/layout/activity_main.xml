@@ -35,6 +35,7 @@
             android:background="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/searchEditText"
+            android:onClick="@{viewModel::onSearchButtonClick}"
             />
 
         <TextView

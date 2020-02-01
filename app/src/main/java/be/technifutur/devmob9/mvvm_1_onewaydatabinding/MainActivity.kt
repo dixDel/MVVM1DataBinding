@@ -44,27 +44,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        searchButton.setOnClickListener {
-            binding.viewModel?.validateSearchName()
-            if (binding.viewModel?.searchNameError == null) {
-                val pokemon: Pokemon? = this.binding.viewModel?.pokemons?.firstOrNull {
-                    it.name.equals(searchEditText.text.toString(), true)
-                }
-                if (pokemon != null) {
-                    Log.d(TAG, "Match found: ${pokemon.name}")
-                    index = this.binding.viewModel!!.getIndexOf(pokemon)
-                    updateDisplay()
-                } else {
-                    Toast.makeText(
-                        this,
-                        "Aucun Pokémon avec le nom ${searchEditText.text} n'a été trouvé !",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            } else {
-                searchEditText.requestFocus()
-            }
-        }
         previousButton.setOnClickListener {
             if (index > 0) {
                 index--

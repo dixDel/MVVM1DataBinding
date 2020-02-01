@@ -2,6 +2,7 @@ package be.technifutur.devmob9.mvvm_1_onewaydatabinding
 
 import android.app.Application
 import android.graphics.drawable.Drawable
+import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
@@ -107,6 +108,18 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app), Obser
     fun getIndexOf(pokemon: Pokemon): Int {
         return this.pokemons.indexOf(pokemon)
     }
+
+    fun onSearchButtonClick(view: View) {
+        this.validateSearchName()
+        if (this.searchNameError == null) {
+            val pokemon: Pokemon? = this.pokemons.firstOrNull {
+                it.name.equals(searchName, true)
+            }
+            if (pokemon != null) {
+                this.pokemon = pokemon
+            } else {
+                this.searchNameError = "Aucun Pokémon avec le nom $searchName n'a été trouvé !"
+            }
+        }
+    }
 }
-
-
