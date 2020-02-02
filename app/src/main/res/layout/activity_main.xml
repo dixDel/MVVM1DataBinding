@@ -39,58 +39,13 @@
             android:onClick="@{viewModel::onSearchButtonClick}"
             android:contentDescription="@string/contentDescSearchButton" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.name}"
-            tools:text="Name"
-            android:textAlignment="center"
-            android:textSize="32sp"
-            app:layout_constraintTop_toBottomOf="@id/searchEditText"
-            android:id="@+id/nameTextView"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:text="@{viewModel.description}"
-            android:id="@+id/descriptionTextView"
-            app:layout_constraintTop_toBottomOf="@id/nameTextView"
-            app:layout_constraintBottom_toTopOf="@+id/imageImageView"
-            android:layout_marginTop="20dp"
-            android:scrollbars="vertical"
-            android:clickable="true"
-            android:focusableInTouchMode="true"
-            android:focusable="true" />
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintHeight_min="80dp"
+            app:layout_constraintTop_toBottomOf="@id/searchEditText"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/imageImageView"
-            app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="20dp"
             android:src="@{viewModel.imageResource}"
-            android:contentDescription="@{viewModel.name}" />
-
-        <Button
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/previousButton"
-            android:text="@string/titlePreviousButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:onClick="@{viewModel::onPreviousButtonClick}"
-            android:enabled="@{viewModel.previousButton}"
-            />
-        <Button
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/nextButton"
-            android:text="@string/titleNextButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:onClick="@{viewModel::onNextButtonClick}"
-            android:enabled="@{viewModel.nextButton}"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

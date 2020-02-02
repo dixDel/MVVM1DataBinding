@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        this.title = "MVVM Exercice 4"
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
@@ -44,8 +45,5 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupViews() {
         searchEditText.setSingleLine()
-
-        descriptionTextView.movementMethod = ScrollingMovementMethod()
-        descriptionTextView.setBackgroundColor(Color.TRANSPARENT)
     }
 }
