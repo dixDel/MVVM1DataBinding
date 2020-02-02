@@ -46,6 +46,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/imageImageView"
             android:src="@{viewModel.imageResource}"
+            android:onClick="@{viewModel::onImageClick}"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

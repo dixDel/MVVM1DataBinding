@@ -4,6 +4,8 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import androidx.databinding.DataBindingUtil
+import be.technifutur.devmob9.mvvm_1_onewaydatabinding.databinding.ActivityDetailsBinding
 import kotlinx.android.synthetic.main.activity_details.*
 
 class DetailsActivity : AppCompatActivity() {
@@ -13,6 +15,13 @@ class DetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_details)
 
         this.setupViews()
+
+        val binding: ActivityDetailsBinding = DataBindingUtil.setContentView(this, R.layout.activity_details)
+
+        val mainViewModel = MainActivityViewModelFactory(this.application)
+            .create(MainViewModel::class.java)
+
+        binding.viewModel = mainViewModel
     }
 
     private fun setupViews() {

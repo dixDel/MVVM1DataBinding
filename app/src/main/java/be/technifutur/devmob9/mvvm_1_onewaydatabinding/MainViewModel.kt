@@ -1,6 +1,7 @@
 package be.technifutur.devmob9.mvvm_1_onewaydatabinding
 
 import android.app.Application
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.databinding.Bindable
@@ -21,7 +22,7 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app), Obser
 
     init {
         setupData()
-        pokemon = pokemons[0]
+        pokemon = pokemons[3]
         if (this.pokemons.size > 0) {
             nextButton = true
         }
@@ -141,5 +142,10 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app), Obser
         }
         this.updateButtonStatus()
         callbacks.notifyChange(this, BR._all)
+    }
+
+    fun onImageClick(view: View) {
+        val intent = Intent(app, DetailsActivity::class.java)
+        app.startActivity(intent)
     }
 }

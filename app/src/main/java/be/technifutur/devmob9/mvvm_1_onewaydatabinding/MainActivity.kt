@@ -1,10 +1,8 @@
 package be.technifutur.devmob9.mvvm_1_onewaydatabinding
 
 import android.app.Activity
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
