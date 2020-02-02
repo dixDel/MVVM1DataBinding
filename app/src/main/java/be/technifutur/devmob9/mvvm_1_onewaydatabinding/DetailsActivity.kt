@@ -18,7 +18,8 @@ class DetailsActivity : AppCompatActivity() {
 
         val binding: ActivityDetailsBinding = DataBindingUtil.setContentView(this, R.layout.activity_details)
 
-        val mainViewModel = MainActivityViewModelFactory(this.application)
+        val index = intent.getIntExtra("startItem", 0)
+        val mainViewModel = MainActivityViewModelFactory(this.application, index)
             .create(MainViewModel::class.java)
 
         binding.viewModel = mainViewModel
