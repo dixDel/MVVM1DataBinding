@@ -14,8 +14,6 @@ class DetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
 
-        this.setupViews()
-
         val binding: ActivityDetailsBinding = DataBindingUtil.setContentView(this, R.layout.activity_details)
 
         val index = intent.getIntExtra("startItem", 0)
@@ -23,6 +21,8 @@ class DetailsActivity : AppCompatActivity() {
             .create(MainViewModel::class.java)
 
         binding.viewModel = mainViewModel
+
+        this.setupViews()
     }
 
     private fun setupViews() {
