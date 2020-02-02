@@ -3,18 +3,20 @@ package be.technifutur.devmob9.mvvm_1_onewaydatabinding
 import android.app.Application
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 
 class MainViewModel(private val app: Application, private val startItem: Int = 0) : AndroidViewModel(app), Observable {
 
     private val pokemons = arrayListOf<Pokemon>()
 
     private var callbacks: PropertyChangeRegistry = PropertyChangeRegistry()
+    private var intentLiveData = MutableLiveData<Intent>()
+    var intent: Intent? = intentLiveData.value
 
     private var pokemon: Pokemon
     var previousButton: Boolean = false
@@ -137,6 +139,9 @@ class MainViewModel(private val app: Application, private val startItem: Int = 0
         val index = getIndex()
         if (index < this.pokemons.size - 1) {
             this.pokemon = this.pokemons[index + 1]
+            val intent = Intent(app, DetailsActivity::class.java)
+            intent.putExtra("startItem", this.getIndex())
+            intentLiveData.value = intent
         }
         this.updateButtonStatus()
         callbacks.notifyChange(this, BR._all)
@@ -149,6 +154,11 @@ class MainViewModel(private val app: Application, private val startItem: Int = 0
     fun onImageClick(view: View) {
         val intent = Intent(app, DetailsActivity::class.java)
         intent.putExtra("startItem", this.getIndex())
+        intentLiveData.value = intent
         app.startActivity(intent)
+    }
+
+    fun getLastKnownIntent(): MutableLiveData<Intent> {
+        return intentLiveData
     }
 }

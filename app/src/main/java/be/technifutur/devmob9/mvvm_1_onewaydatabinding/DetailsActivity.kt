@@ -13,6 +13,8 @@ class DetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
+        
+        this.title = "MVVM Exercice 4"
 
         val binding: ActivityDetailsBinding = DataBindingUtil.setContentView(this, R.layout.activity_details)
 

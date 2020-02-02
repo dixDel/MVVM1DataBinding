@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import be.technifutur.devmob9.mvvm_1_onewaydatabinding.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -23,12 +24,17 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         val mainViewModel = MainActivityViewModelFactory(this.application)
-            .create(MainViewModel::class.java)
+            .create(MainViewModel::class.java) as MainViewModel
 
         binding.viewModel = mainViewModel
 
         setupViews()
         setupListeners()
+
+        binding.viewModel!!.getLastKnownIntent().observe(this, Observer {
+            lastKnownIntent ->
+            Log.d(TAG, lastKnownIntent.getIntExtra("startItem", 0).toString())
+        })
     }
 
     private fun setupListeners() {
